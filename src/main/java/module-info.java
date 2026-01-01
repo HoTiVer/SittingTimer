@@ -3,6 +3,7 @@ module org.hotiver.sittingtimer {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.desktop;
+    requires com.fasterxml.jackson.databind;
 
 
     opens org.hotiver.sittingtimer to javafx.fxml;
@@ -11,4 +12,6 @@ module org.hotiver.sittingtimer {
     opens org.hotiver.sittingtimer.controller to javafx.fxml;
     exports org.hotiver.sittingtimer.app;
     opens org.hotiver.sittingtimer.app to javafx.fxml;
+
+    opens org.hotiver.sittingtimer.config to com.fasterxml.jackson.databind;
 }

@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+import org.hotiver.sittingtimer.config.Config;
+import org.hotiver.sittingtimer.config.ConfigLoader;
 
 
 public class TimerController {
@@ -17,16 +19,20 @@ public class TimerController {
     private Timeline workTimeline;
     private Timeline restTimeline;
 
-    private final int workSecondsValue = 10;
-    private final int restSecondsValue = 11;
-    private int workSeconds = workSecondsValue;
-    private int restSeconds = restSecondsValue;
+    private Config config;
+
+    private int workSeconds;
+    private int restSeconds;
 
     private boolean running = false;
     private boolean workCompleted = false;
 
     @FXML
     public void initialize() {
+        config = ConfigLoader.loadConfig();
+        workSeconds = config.workSeconds;
+        restSeconds = config.restSeconds;
+
         timerLabel.setText(formatTime(workSeconds));
 
         workTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -87,7 +93,7 @@ public class TimerController {
         workTimeline.stop();
         startButton.setText("Start Timer");
         running = false;
-        restSeconds = restSecondsValue;
+        restSeconds = config.restSeconds;
         timerLabel.setText(formatTime(restSeconds));
         workCompleted = true;
     }
@@ -96,7 +102,7 @@ public class TimerController {
         restTimeline.stop();
         startButton.setText("Start Timer");
         running = false;
-        workSeconds = workSecondsValue;
+        workSeconds = config.workSeconds;
         timerLabel.setText(formatTime(workSeconds));
         workCompleted = false;
     }
