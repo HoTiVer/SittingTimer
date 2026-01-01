@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ConfigCreator {
 
-    private static final String CONFIG_TEXT = """
+    private static final String DEFAULT_CONFIG_TEXT = """
     {
       "workSeconds": 10,
       "restSeconds": 11
@@ -23,7 +23,7 @@ public class ConfigCreator {
             }
 
             try (FileWriter writer = new FileWriter(file)) {
-                writer.write(CONFIG_TEXT);
+                writer.write(DEFAULT_CONFIG_TEXT);
             }
 
         } catch (IOException e) {
