@@ -15,7 +15,8 @@ public class ConfigTools {
     private static final String DEFAULT_CONFIG_TEXT = """
     {
       "workSeconds": 10,
-      "restSeconds": 11
+      "restSeconds": 11,
+      "soundVolume": 0.5
     }
     """;
 

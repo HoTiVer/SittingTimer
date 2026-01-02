@@ -1,4 +1,5 @@
 module org.hotiver.sittingtimer {
+    requires javafx.media;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
