@@ -3,14 +3,10 @@ package org.hotiver.sittingtimer.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.hotiver.sittingtimer.config.ConfigDto;
 import org.hotiver.sittingtimer.config.ConfigTools;
@@ -19,6 +15,8 @@ import org.hotiver.sittingtimer.config.ConfigTools;
 public class TimerController {
     @FXML
     private Label timerLabel;
+    @FXML
+    private Label infoLabel;
     @FXML
     private Button startButton;
     @FXML
@@ -36,7 +34,7 @@ public class TimerController {
     private int restSeconds;
 
     private boolean running = false;
-    private boolean workCompleted = false;
+    private boolean isWorkCompleted = false;
 
     @FXML
     public void initialize() {
@@ -44,7 +42,14 @@ public class TimerController {
         workSeconds = configDto.workSeconds;
         restSeconds = configDto.restSeconds;
 
-        timerLabel.setText(formatTime(workSeconds));
+        if (isWorkCompleted) {
+            infoLabel.setText("Time to rest");
+            timerLabel.setText(formatTime(restSeconds));
+        }
+        else {
+            infoLabel.setText("Time to work");
+            timerLabel.setText(formatTime(workSeconds));
+        }
 
         workTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             if (workSeconds > 0) {
@@ -69,7 +74,7 @@ public class TimerController {
 
     @FXML
     private void toggleTimer() {
-        if (workCompleted) {
+        if (isWorkCompleted) {
             if (!running) {
                 restTimeline.play();
                 startButton.setText("Stop Timer");
@@ -142,7 +147,8 @@ public class TimerController {
         running = false;
         restSeconds = configDto.restSeconds;
         timerLabel.setText(formatTime(restSeconds));
-        workCompleted = true;
+        isWorkCompleted = true;
+        infoLabel.setText("Time to rest");
     }
 
     private void initializeWorkTimer() {
@@ -151,6 +157,7 @@ public class TimerController {
         running = false;
         workSeconds = configDto.workSeconds;
         timerLabel.setText(formatTime(workSeconds));
-        workCompleted = false;
+        isWorkCompleted = false;
+        infoLabel.setText("Time to work");
     }
 }
