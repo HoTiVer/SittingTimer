@@ -4,6 +4,7 @@ public class ConfigDto {
     public int workSeconds;
     public int restSeconds;
     public double soundVolume;
+    public boolean isMuted;
 
     public ConfigDto() {
     }

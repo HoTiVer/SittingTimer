@@ -13,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.hotiver.sittingtimer.config.ConfigDto;
 import org.hotiver.sittingtimer.config.ConfigTools;
+import org.hotiver.sittingtimer.notification.DesktopNotification;
 
 
 public class TimerController {
@@ -21,11 +22,15 @@ public class TimerController {
     @FXML
     private Label infoLabel;
     @FXML
+    private Label overlayMessage;
+    @FXML
     private Button startButton;
     @FXML
     private Button muteButton;
     @FXML
     private VBox settingsPane;
+    @FXML
+    private VBox overlayPane;
     @FXML
     private TextField workSecondsField;
     @FXML
@@ -46,7 +51,7 @@ public class TimerController {
 
     private boolean running = false;
     private boolean isWorkCompleted = false;
-    private boolean isMuted = false;
+    private boolean overlayVisible = false;
 
     @FXML
     public void initialize() {
@@ -70,7 +75,7 @@ public class TimerController {
                 workSeconds--;
                 timerLabel.setText(formatTime(workSeconds));
             } else {
-                playSoundNotification();
+                initializeNotification("Timer", "Time to rest");
                 initializeRestTimer();
             }
         }));
@@ -81,7 +86,7 @@ public class TimerController {
                 restSeconds--;
                 timerLabel.setText(formatTime(restSeconds));
             } else  {
-                playSoundNotification();
+                initializeNotification("Timer", "Time to work");
                 initializeWorkTimer();
             }
         }));
@@ -179,16 +184,41 @@ public class TimerController {
         infoLabel.setText("Time to work");
     }
 
-    private void playSoundNotification() {
-        soundPlayer.setVolume(configDto.soundVolume);
+    private void initializeNotification(String title, String message) {
+        playSoundNotification();
+        DesktopNotification.showNotification(title, message);
+        showOverlay(message);
+    }
 
-        if (!isMuted)
+    private void playSoundNotification() {
+        ConfigDto dto = ConfigTools.loadConfig();
+        if (!dto.isMuted) {
+            soundPlayer.setVolume(configDto.soundVolume);
+            soundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
             soundPlayer.play();
+        }
     }
 
     @FXML
     private void toggleMute() {
-        isMuted = !isMuted;
-        muteButton.setText(isMuted ? "On" : "Off");
+        ConfigDto dto = ConfigTools.loadConfig();
+        dto.isMuted = !dto.isMuted;
+        ConfigTools.saveConfig(dto);
+        muteButton.setText(dto.isMuted ? "On" : "Off");
+    }
+
+    private void showOverlay(String message) {
+        overlayMessage.setText(message);
+        overlayPane.setVisible(true);
+        overlayPane.setMouseTransparent(false);
+        overlayVisible = true;
+    }
+
+    @FXML
+    private void closeOverlay() {
+        overlayPane.setVisible(false);
+        overlayPane.setMouseTransparent(true);
+        overlayVisible = false;
+        soundPlayer.stop();
     }
 }

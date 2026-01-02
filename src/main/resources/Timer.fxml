@@ -62,4 +62,18 @@
         <Button text="Close" onAction="#closeSettings"/>
     </VBox>
 
+    <VBox fx:id="overlayPane"
+          alignment="CENTER"
+          spacing="20"
+          visible="false"
+          mouseTransparent="true"
+          style="-fx-background-color: rgba(0,0,0,0.75); -fx-padding: 25;">
+
+        <Label fx:id="overlayMessage"
+               text="Timer is gone"
+               style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+        <Button text="Close" onAction="#closeOverlay"/>
+    </VBox>
+
 </StackPane>

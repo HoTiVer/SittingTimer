@@ -16,7 +16,8 @@ public class ConfigTools {
     {
       "workSeconds": 10,
       "restSeconds": 11,
-      "soundVolume": 0.5
+      "soundVolume": 0.5,
+      "isMuted": false
     }
     """;
 
