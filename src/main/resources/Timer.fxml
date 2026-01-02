@@ -3,20 +3,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.hotiver.sittingtimer.controller.TimerController"
-      alignment="CENTER"
-      spacing="20"
-      prefHeight="400.0"
-      prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.hotiver.sittingtimer.controller.TimerController"
+           prefWidth="600" prefHeight="400">
 
-    <Label fx:id="timerLabel"
-           text="00:00:00"
-           style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+    <VBox alignment="CENTER" spacing="20">
+        <Label fx:id="timerLabel"
+               text="00:00:00"
+               style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+        <Button fx:id="startButton"
+                text="Start Timer"
+                style="-fx-font-size: 16px;"
+                onAction="#toggleTimer"/>
+    </VBox>
 
-    <Button fx:id="startButton"
-            text="Start Timer"
-            style="-fx-font-size: 16px;"
-            onAction="#toggleTimer"/>
-</VBox>
+    <Button  text="⚙" StackPane.alignment="TOP_RIGHT" onAction="#openSettings">
+        <StackPane.margin>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </StackPane.margin>
+    </Button>
+
+
+    <VBox fx:id="settingsPane"
+          alignment="CENTER"
+          spacing="15"
+          visible="false"
+          mouseTransparent="true"
+          style="-fx-background-color: rgba(0,0,0,0.75); -fx-padding: 25;">
+
+        <Label text="Settings"
+               style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <Label text="Work seconds:" style="-fx-text-fill: white;"/>
+            <TextField fx:id="workSecondsField" prefWidth="60"/>
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Rest seconds:" style="-fx-text-fill: white;"/>
+            <TextField fx:id="restSecondsField" prefWidth="60"/>
+        </HBox>
+
+        <Button text="Save" onAction="#saveSettings"/>
+        <Button text="Close" onAction="#closeSettings"/>
+    </VBox>
+
+</StackPane>

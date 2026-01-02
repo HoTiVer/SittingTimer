@@ -1,13 +1,13 @@
 package org.hotiver.sittingtimer.config;
 
-public class Config {
+public class ConfigDto {
     public int workSeconds;
     public int restSeconds;
 
-    public Config() {
+    public ConfigDto() {
     }
 
-    public Config(int workSeconds, int restSeconds) {
+    public ConfigDto(int workSeconds, int restSeconds) {
         this.workSeconds = workSeconds;
         this.restSeconds = restSeconds;
     }
