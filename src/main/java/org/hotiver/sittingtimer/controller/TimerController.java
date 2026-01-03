@@ -98,22 +98,22 @@ public class TimerController {
         if (isWorkCompleted) {
             if (!running) {
                 restTimeline.play();
-                startButton.setText("Stop Timer");
+                startButton.setText("Stop");
                 running = true;
             } else {
                 restTimeline.stop();
-                startButton.setText("Start Timer");
+                startButton.setText("Start");
                 running = false;
             }
         }
         else {
             if (!running) {
                 workTimeline.play();
-                startButton.setText("Stop Timer");
+                startButton.setText("Stop");
                 running = true;
             } else {
                 workTimeline.stop();
-                startButton.setText("Start Timer");
+                startButton.setText("Start");
                 running = false;
             }
         }
@@ -166,7 +166,7 @@ public class TimerController {
 
     private void initializeRestTimer() {
         workTimeline.stop();
-        startButton.setText("Start Timer");
+        startButton.setText("Start");
         running = false;
         restSeconds = configDto.restSeconds;
         timerLabel.setText(formatTime(restSeconds));
@@ -176,7 +176,7 @@ public class TimerController {
 
     private void initializeWorkTimer() {
         restTimeline.stop();
-        startButton.setText("Start Timer");
+        startButton.setText("Start");
         running = false;
         workSeconds = configDto.workSeconds;
         timerLabel.setText(formatTime(workSeconds));
