@@ -13,7 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.hotiver.sittingtimer.config.ConfigDto;
 import org.hotiver.sittingtimer.config.ConfigTools;
-import org.hotiver.sittingtimer.notification.DesktopNotification;
+import org.hotiver.sittingtimer.service.TrayService;
 
 
 public class TimerController {
@@ -186,7 +186,7 @@ public class TimerController {
 
     private void initializeNotification(String title, String message) {
         playSoundNotification();
-        DesktopNotification.showNotification(title, message);
+        TrayService.getInstance().showNotification(title, message);
         showOverlay(message);
     }
 
