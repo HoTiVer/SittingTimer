@@ -136,8 +136,8 @@ public class TimerController {
 
     @FXML
     private void openSettings() {
-        workSecondsField.setText(String.valueOf(configDto.workSeconds));
-        restSecondsField.setText(String.valueOf(configDto.restSeconds));
+        workSecondsField.setText(String.valueOf(parseInMinutes(configDto.workSeconds)));
+        restSecondsField.setText(String.valueOf(parseInMinutes(configDto.restSeconds)));
         volumeSlider.setValue(configDto.soundVolume);
         settingsPane.setVisible(true);
         settingsPane.setMouseTransparent(false);
@@ -152,8 +152,8 @@ public class TimerController {
     @FXML
     private void saveSettings() {
         try {
-            int work = Integer.parseInt(workSecondsField.getText());
-            int rest = Integer.parseInt(restSecondsField.getText());
+            int work = parseInSeconds(Integer.parseInt(workSecondsField.getText()));
+            int rest = parseInSeconds(Integer.parseInt(restSecondsField.getText()));
             double soundVolume = volumeSlider.getValue();
 
             if (work < 0 || rest < 0) {
@@ -170,6 +170,14 @@ public class TimerController {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
+    }
+
+    private int parseInSeconds(int seconds) {
+        return seconds * 60;
+    }
+
+    private int parseInMinutes(int minutes) {
+        return minutes / 60;
     }
 
     private String formatTime(int totalSeconds) {

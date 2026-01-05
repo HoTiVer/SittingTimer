@@ -38,11 +38,11 @@
             <Label text="Preferences" styleClass="modal-title"/>
             <VBox spacing="12">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="Work (s):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Label text="Work (m):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     <TextField fx:id="workSecondsField" prefWidth="70" styleClass="dark-input"/>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="Rest (s):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Label text="Rest (m):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     <TextField fx:id="restSecondsField" prefWidth="70" styleClass="dark-input"/>
                 </HBox>
                 <Separator opacity="0.1"/>
