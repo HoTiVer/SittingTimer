@@ -125,6 +125,16 @@ public class TimerController {
     }
 
     @FXML
+    public void skipSession() {
+        if (isWorkCompleted) {
+            initializeWorkTimer();
+        }
+        else {
+            initializeRestTimer();
+        }
+    }
+
+    @FXML
     private void openSettings() {
         workSecondsField.setText(String.valueOf(configDto.workSeconds));
         restSecondsField.setText(String.valueOf(configDto.restSeconds));
@@ -246,5 +256,4 @@ public class TimerController {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.hide();
     }
-
 }
