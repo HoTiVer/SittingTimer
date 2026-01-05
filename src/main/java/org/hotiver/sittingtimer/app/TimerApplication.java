@@ -53,11 +53,8 @@ public class TimerApplication extends Application {
         });
 
         TrayService.getInstance().setupTray(stage);
+        TrayService.getInstance().openByTrayNotification(stage);
 
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            stage.hide();
-        });
         stage.show();
     }
 }

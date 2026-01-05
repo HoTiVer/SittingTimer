@@ -66,7 +66,7 @@ public class TrayService {
 
     public void showNotification(String title, String message) {
         if (trayIcon != null) {
-            trayIcon.displayMessage(title, message, TrayIcon.MessageType.INFO);
+            trayIcon.displayMessage(title, message, TrayIcon.MessageType.NONE);
         }
     }
 
@@ -76,6 +76,16 @@ public class TrayService {
             stage.setIconified(false);
             stage.toFront();
             stage.requestFocus();
+        });
+    }
+
+    public void openByTrayNotification(Stage stage) {
+        trayIcon.addActionListener(e -> {
+            Platform.runLater(() -> {
+                stage.show();
+                stage.setIconified(false);
+                stage.toFront();
+            });
         });
     }
 }
