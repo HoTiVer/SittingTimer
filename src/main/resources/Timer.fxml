@@ -1,79 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Circle?>
+
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="org.hotiver.sittingtimer.controller.TimerController"
-           prefWidth="600" prefHeight="400">
+           prefWidth="420" prefHeight="340"
+           styleClass="root-pane">
 
-    <VBox alignment="CENTER" spacing="20">
-        <Label fx:id="infoLabel"
-               style="-fx-font-size: 16px;"/>
-        <Label fx:id="timerLabel"
-               text="00:00:00"
-               style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
-        <Button fx:id="startButton"
-                text="Start"
-                style="-fx-font-size: 16px;"
-                onAction="#toggleTimer"/>
+    <Circle radius="120" fill="#6366f1" opacity="0.05" StackPane.alignment="TOP_LEFT" translateY="-30" translateX="-30"/>
+
+    <VBox alignment="CENTER" spacing="20" styleClass="main-content">
+        <VBox alignment="CENTER" spacing="5">
+            <Label fx:id="infoLabel" text="SITTING SESSION" styleClass="info-label"/>
+            <Label fx:id="timerLabel" text="00:00:00" styleClass="timer-label"/>
+        </VBox>
+        <Button fx:id="startButton" text="Start" onAction="#toggleTimer" styleClass="btn-primary"/>
     </VBox>
 
-    <Button  text="⚙" StackPane.alignment="TOP_RIGHT" onAction="#openSettings">
+    <Button text="⚙" styleClass="btn-icon" StackPane.alignment="BOTTOM_RIGHT" onAction="#openSettings">
         <StackPane.margin>
-            <Insets top="10" right="10" bottom="10" left="10"/>
+            <Insets bottom="15" right="15"/>
         </StackPane.margin>
     </Button>
 
-    <VBox fx:id="settingsPane"
-          alignment="CENTER"
-          spacing="15"
-          visible="false"
-          mouseTransparent="true"
-          style="-fx-background-color: rgba(0,0,0,0.75); -fx-padding: 25;">
+    <HBox spacing="8" alignment="TOP_RIGHT" StackPane.alignment="TOP_RIGHT" pickOnBounds="false" maxWidth="-Infinity" maxHeight="-Infinity">
+        <StackPane.margin>
+            <Insets top="12" right="12"/>
+        </StackPane.margin>
+        <Button text="—" onAction="#minimizeWindow" styleClass="window-control-btn"/>
+        <Button text="✕" onAction="#hideToTray" styleClass="window-control-btn, close-btn"/>
+    </HBox>
 
-        <Label text="Settings"
-               style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
-
-        <HBox spacing="10">
-            <Label text="Work seconds:" style="-fx-text-fill: white;"/>
-            <TextField fx:id="workSecondsField" prefWidth="60"/>
-        </HBox>
-
-        <HBox spacing="10">
-            <Label text="Rest seconds:" style="-fx-text-fill: white;"/>
-            <TextField fx:id="restSecondsField" prefWidth="60"/>
-        </HBox>
-
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="Volume:" style="-fx-text-fill: white;"/>
-            <Slider fx:id="volumeSlider" min="0.0" max="1.0" blockIncrement="0.05" prefWidth="150"/>
-        </HBox>
-
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Label text="Mute:" style="-fx-text-fill: white;"/>
-            <Button fx:id="muteButton" text="Off" onAction="#toggleMute"/>
-        </HBox>
-
-
-        <Button text="Save" onAction="#saveSettings"/>
-        <Button text="Close" onAction="#closeSettings"/>
+    <VBox fx:id="settingsPane" visible="false" styleClass="modal-overlay" alignment="CENTER">
+        <VBox spacing="20" alignment="CENTER" styleClass="modal-card" maxWidth="380">
+            <Label text="Preferences" styleClass="modal-title"/>
+            <VBox spacing="12" styleClass="settings-group">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Work (s):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <TextField fx:id="workSecondsField" prefWidth="70" styleClass="dark-input"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Rest (s):" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <TextField fx:id="restSecondsField" prefWidth="70" styleClass="dark-input"/>
+                </HBox>
+                <Separator opacity="0.1"/>
+                <VBox spacing="8">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Volume" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Label fx:id="volValue" text="100%" styleClass="value-text" style="-fx-text-fill: white;"/>
+                    </HBox>
+                    <Slider fx:id="volumeSlider" min="0.0" max="1.0" styleClass="modern-slider"/>
+                </VBox>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Mute Sounds" styleClass="field-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button fx:id="muteButton" text="Off" onAction="#toggleMute" styleClass="btn-toggle"/>
+                </HBox>
+            </VBox>
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Save" onAction="#saveSettings" styleClass="btn-primary-small" style="-fx-padding: 8 20;"/>
+                <Button text="Close" onAction="#closeSettings" styleClass="btn-icon" style="-fx-font-size: 13px;"/>
+            </HBox>
+        </VBox>
     </VBox>
 
-    <VBox fx:id="overlayPane"
-          alignment="CENTER"
-          spacing="20"
-          visible="false"
-          mouseTransparent="true"
-          style="-fx-background-color: rgba(0,0,0,0.75); -fx-padding: 25;">
-
-        <Label fx:id="overlayMessage"
-               text="Timer is gone"
-               style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
-
-        <Button text="Close" onAction="#closeOverlay"/>
+    <VBox fx:id="overlayPane" visible="false" styleClass="modal-overlay" alignment="CENTER">
+        <VBox spacing="20" alignment="CENTER" styleClass="modal-card" maxWidth="300" style="-fx-padding: 40;">
+            <Label fx:id="overlayMessage" text="Time to Rest!" styleClass="modal-title"/>
+            <Button text="Understood" onAction="#closeOverlay" styleClass="btn-primary"/>
+        </VBox>
     </VBox>
 
 </StackPane>

@@ -2,6 +2,7 @@ package org.hotiver.sittingtimer.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.hotiver.sittingtimer.config.ConfigDto;
 import org.hotiver.sittingtimer.config.ConfigTools;
@@ -221,4 +223,17 @@ public class TimerController {
         overlayVisible = false;
         soundPlayer.stop();
     }
+
+    @FXML
+    private void minimizeWindow(ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void hideToTray(javafx.event.ActionEvent event) {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.hide();
+    }
+
 }
