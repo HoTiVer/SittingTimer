@@ -63,6 +63,9 @@ public class TimerController {
         Media sound = new Media(getClass().getResource("/notification.wav").toExternalForm());
         soundPlayer = new MediaPlayer(sound);
 
+        muteButton.setText(configDto.isMuted ? "On" : "Off");
+        changeMuteBackground();
+
         if (isWorkCompleted) {
             infoLabel.setText("Time to rest");
             timerLabel.setText(formatTime(restSeconds));
@@ -147,7 +150,7 @@ public class TimerController {
                 return;
             }
 
-            ConfigDto configDto = new ConfigDto(work, rest, soundVolume);
+            ConfigDto configDto = new ConfigDto(work, rest, soundVolume, this.configDto.isMuted);
             ConfigTools.saveConfig(configDto);
 
             initialize();
@@ -203,10 +206,18 @@ public class TimerController {
 
     @FXML
     private void toggleMute() {
-        ConfigDto dto = ConfigTools.loadConfig();
-        dto.isMuted = !dto.isMuted;
-        ConfigTools.saveConfig(dto);
-        muteButton.setText(dto.isMuted ? "On" : "Off");
+        configDto.isMuted = !configDto.isMuted;
+        ConfigTools.saveConfig(configDto);
+        muteButton.setText(configDto.isMuted ? "On" : "Off");
+        changeMuteBackground();
+    }
+
+    private void changeMuteBackground() {
+        if (configDto.isMuted) {
+            muteButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: black;");
+        } else {
+            muteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+        }
     }
 
     private void showOverlay(String message) {

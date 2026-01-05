@@ -10,9 +10,10 @@ public class ConfigDto {
     }
 
     public ConfigDto(int workSeconds, int restSeconds,
-                     double soundVolume) {
+                     double soundVolume, boolean isMuted) {
         this.workSeconds = workSeconds;
         this.restSeconds = restSeconds;
         this.soundVolume = soundVolume;
+        this.isMuted = isMuted;
     }
 }
