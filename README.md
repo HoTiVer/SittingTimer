@@ -2,7 +2,7 @@
 
 A lightweight and minimalistic JavaFX timer designed for monitoring time on your computer.
 
-[![Latest Release](https://img.shields.io/github/v/release/hotiver/SittingTimer?label=Download%20EXE)](https://github.com/hotiver/SittingTimer/releases/latest)
+[![Latest Release](https://img.shields.io/github/v/release/hotiver/SittingTimer?label=Download%20EXE)](https://github.com/hotiver/SittingTimer/releases/tag/v0.1-alpha)
 ##  Project Goal
 This project was created **primarily for personal use**. 
 I needed a simple tool to remind me to take a break, 
