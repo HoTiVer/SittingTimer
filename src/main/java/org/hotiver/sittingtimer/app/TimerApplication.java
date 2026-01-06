@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class TimerApplication extends Application {
+    private static Stage primaryStage;
     @Override
     public void start(Stage stage) throws IOException {
         Platform.setImplicitExit(false);
@@ -55,6 +56,14 @@ public class TimerApplication extends Application {
         TrayService.getInstance().setupTray(stage);
         TrayService.getInstance().openByTrayNotification(stage);
 
+        primaryStage = stage;
         stage.show();
+    }
+
+    public static void focusExistingWindow() {
+        if (primaryStage != null) {
+            primaryStage.toFront();
+            primaryStage.requestFocus();
+        }
     }
 }
