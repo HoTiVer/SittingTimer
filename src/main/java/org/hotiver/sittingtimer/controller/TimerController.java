@@ -172,6 +172,7 @@ public class TimerController {
             ConfigTools.saveConfig(configDto);
 
             initialize();
+            closeSettings();
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
