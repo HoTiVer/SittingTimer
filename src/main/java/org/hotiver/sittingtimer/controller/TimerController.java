@@ -40,6 +40,9 @@ public class TimerController {
     @FXML
     private Slider volumeSlider;
 
+    @FXML
+    private Label volValue;
+
 
     private Timeline workTimeline;
     private Timeline restTimeline;
@@ -96,6 +99,11 @@ public class TimerController {
             }
         }));
         restTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int percentage = (int) (newValue.doubleValue() * 100);
+            volValue.setText(percentage + "%");
+        });
     }
 
     @FXML
@@ -164,8 +172,6 @@ public class TimerController {
             ConfigTools.saveConfig(configDto);
 
             initialize();
-
-            closeSettings();
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
