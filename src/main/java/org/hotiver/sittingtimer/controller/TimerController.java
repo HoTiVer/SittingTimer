@@ -171,6 +171,13 @@ public class TimerController {
             ConfigDto configDto = new ConfigDto(work, rest, soundVolume, this.configDto.isMuted);
             ConfigTools.saveConfig(configDto);
 
+            if (isWorkCompleted)
+                restTimeline.stop();
+            else
+                workTimeline.stop();
+
+            running = false;
+            startButton.setText("Start");
             initialize();
             closeSettings();
 
